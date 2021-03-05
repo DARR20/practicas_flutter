@@ -1,0 +1,15 @@
+{
+    "nombreApp" : "Componentes",
+    "rutas" : [
+        {
+            "ruta" : "consulta",
+            "icon" : "account_circle",
+            "texto": "Consultar Empleados"
+        },
+        {
+            "ruta" : "subempleados",
+            "icon" : "reduce_capacity_outlined",
+            "texto": "SubEmpleados"
+        }
+    ]
+}
