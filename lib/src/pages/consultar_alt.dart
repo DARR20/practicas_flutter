@@ -12,18 +12,66 @@ class ConsultarAltPage extends StatefulWidget {
 }
 
 class _ConsultarAltPageState extends State<ConsultarAltPage> {
-  List<ReqRespuesta> _lista;
   bool _carga;
+  ReqRespuesta reqDatos;
 
   @override
   void initState() {
     super.initState();
     _carga = true;
+    reqDatos = ReqRespuesta();
+    print('init state respuesta:  ${reqDatos.employees}');
     DataProviderAlt.cargarData().then((respuesta) {
-      print('esta es la respuesta. $respuesta');
-      _lista = respuesta;
-      _carga = false;
+      setState(() {
+        reqDatos = respuesta;
+        _carga = false;
+      });
     });
+  }
+
+  Widget listaDatos() {
+    print('lista datos respuesta:  ${reqDatos.employees}');
+    return Expanded(
+      child: ListView.builder(
+        itemCount: reqDatos.employees == null ? 0 : reqDatos.employees.length,
+        itemBuilder: (BuildContext context, int index) {
+          return listaTerminada(index);
+        },
+      ),
+    );
+  }
+
+  Widget listaTerminada(int index) {
+    print('consulta alt reqDatos: ${reqDatos.employees}');
+
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              reqDatos.employees[index].name,
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            Text(
+              reqDatos.employees[index].position.toLowerCase(),
+              style: TextStyle(
+                fontSize: 16.0,
+                color: Colors.black12,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -33,18 +81,10 @@ class _ConsultarAltPageState extends State<ConsultarAltPage> {
         title: Text(_carga ? 'Cargando. . .' : 'Consultar Empleados'),
       ),
       body: Container(
-        color: Colors.white,
-        child: Stack(
-          children: [
-            ListView.builder(
-              itemBuilder: (context, index) {
-                ReqRespuesta resp = _lista[index];
-
-                return ListTile(
-                  title: Text(resp.companyName),
-                );
-              },
-            )
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          children: <Widget>[
+            listaDatos(),
           ],
         ),
       ),

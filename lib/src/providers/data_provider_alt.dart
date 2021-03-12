@@ -9,20 +9,29 @@ class DataProviderAlt {
 
 //cargarData() se encarga de extraer información del URL de un json
 
-  static Future<List<ReqRespuesta>> cargarData() async {
+  static Future<ReqRespuesta> cargarData() async {
     try {
       final response = await http.get(resp);
 
-      if (response.statusCode == 200) {
-        final List<ReqRespuesta> respuesta =
-            reqRespuestaFromJson(response.body);
+      return parseData(response.body);
 
-        return respuesta;
-      } else {
-        return List<ReqRespuesta>();
-      }
+      //return respuesta;
+
     } catch (e) {
-      return List<ReqRespuesta>();
+      print('Error: ${e.toString()}');
+
+      return ReqRespuesta();
     }
+  }
+
+  static ReqRespuesta parseData(String responseBody) {
+    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    List<ReqRespuestaEmployee> datos = parsed
+        .map<ReqRespuesta>((json) => ReqRespuesta.fromJson(json))
+        .toList();
+
+    ReqRespuesta reqDatos = ReqRespuesta();
+    reqDatos.employees = datos;
+    return reqDatos;
   }
 }
