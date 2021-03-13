@@ -13,65 +13,20 @@ class ConsultarAltPage extends StatefulWidget {
 
 class _ConsultarAltPageState extends State<ConsultarAltPage> {
   bool _carga;
-  ReqRespuesta reqDatos;
+  List<ReqRespuesta> reqDatos = [];
 
   @override
   void initState() {
     super.initState();
     _carga = true;
-    reqDatos = ReqRespuesta();
-    print('init state respuesta:  ${reqDatos.employees}');
+
     DataProviderAlt.cargarData().then((respuesta) {
       setState(() {
         reqDatos = respuesta;
+        print('init state respuesta:  $reqDatos');
         _carga = false;
       });
     });
-  }
-
-  Widget listaDatos() {
-    print('lista datos respuesta:  ${reqDatos.employees}');
-    return Expanded(
-      child: ListView.builder(
-        itemCount: reqDatos.employees == null ? 0 : reqDatos.employees.length,
-        itemBuilder: (BuildContext context, int index) {
-          return listaTerminada(index);
-        },
-      ),
-    );
-  }
-
-  Widget listaTerminada(int index) {
-    print('consulta alt reqDatos: ${reqDatos.employees}');
-
-    return Card(
-      child: Padding(
-        padding: EdgeInsets.all(10.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              reqDatos.employees[index].name,
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.black,
-              ),
-            ),
-            SizedBox(
-              height: 5.0,
-            ),
-            Text(
-              reqDatos.employees[index].position.toLowerCase(),
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.black12,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   @override
@@ -82,10 +37,13 @@ class _ConsultarAltPageState extends State<ConsultarAltPage> {
       ),
       body: Container(
         padding: EdgeInsets.all(10.0),
-        child: Column(
-          children: <Widget>[
-            listaDatos(),
-          ],
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            ReqRespuesta resp = reqDatos[1];
+            return ListTile(
+              title: Text(resp.employees[index].name),
+            );
+          },
         ),
       ),
     );

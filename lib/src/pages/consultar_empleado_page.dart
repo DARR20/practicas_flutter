@@ -9,7 +9,7 @@ class ConsultaEmpleadoPage extends StatefulWidget {
 class _ConsultaEmpleadoPageState extends State<ConsultaEmpleadoPage> {
   Future<List<dynamic>> empleados = dataProvider.cargarData();
 
-  bool buscador = false, _cambiarSwitch = false;
+  bool buscador = false, cambiarSwitch = false;
 
   @override
   void initState() {
@@ -158,7 +158,7 @@ class _ConsultaEmpleadoPageState extends State<ConsultaEmpleadoPage> {
     return Container(
       child: SwitchListTile(
         title: Text('Marcar como Nuevo'),
-        value: _cambiarSwitch = opt['Nuevo'],
+        value: cambiarSwitch = opt['Nuevo'],
         onChanged: (_valor) {
           if (opt['Nuevo'] == false) {
             opt.update("Nuevo", (value) => value = true);
@@ -167,7 +167,7 @@ class _ConsultaEmpleadoPageState extends State<ConsultaEmpleadoPage> {
           }
 
           setState(() {
-            _cambiarSwitch = opt['Nuevo'];
+            cambiarSwitch = opt['Nuevo'];
           });
         },
       ),

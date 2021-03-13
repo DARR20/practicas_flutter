@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-//para usar el data_privoder_alt ReqRespuesta debe ser "List<ReqRespuesta> y fromJson a from"
+//para usar el data_privoder_alt ReqRespuesta debe ser "List<ReqRespuesta>"
 List<ReqRespuesta> reqRespuestaFromJson(String str) =>
     List<ReqRespuesta>.from(json.decode(str));
 
