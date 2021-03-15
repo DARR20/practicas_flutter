@@ -13,7 +13,7 @@ class ConsultarAltPage extends StatefulWidget {
 
 class _ConsultarAltPageState extends State<ConsultarAltPage> {
   bool _carga;
-  List<ReqRespuesta> reqDatos = [];
+  List<dynamic> reqDatos = [];
 
   @override
   void initState() {
@@ -23,7 +23,6 @@ class _ConsultarAltPageState extends State<ConsultarAltPage> {
     DataProviderAlt.cargarData().then((respuesta) {
       setState(() {
         reqDatos = respuesta;
-        print('init state respuesta:  $reqDatos');
         _carga = false;
       });
     });
@@ -38,10 +37,24 @@ class _ConsultarAltPageState extends State<ConsultarAltPage> {
       body: Container(
         padding: EdgeInsets.all(10.0),
         child: ListView.builder(
+          itemCount: reqDatos.length,
           itemBuilder: (context, index) {
-            ReqRespuesta resp = reqDatos[1];
-            return ListTile(
-              title: Text(resp.employees[index].name),
+            List<dynamic> resp = reqDatos;
+            return Card(
+              child: ListTile(
+                title: Text(
+                  '${resp[index]["name"]}',
+                  style: TextStyle(
+                    fontSize: 25.0,
+                  ),
+                ),
+                subtitle: Text(
+                  '\n${resp[index]["position"]}',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                  ),
+                ),
+              ),
             );
           },
         ),

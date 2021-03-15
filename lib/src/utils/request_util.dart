@@ -22,7 +22,7 @@ class ReqRespuesta {
 //Declaración de variables
   String companyName;
   String address;
-  List<ReqRespuestaEmployee> employees;
+  List<dynamic> employees;
 
 //Metodos Getter and Setter
 
@@ -32,13 +32,13 @@ class ReqRespuesta {
 
   set setCompanyName(String value) => this.companyName = value;
   set setAddres(String value) => this.address = value;
-  set setEmployees(List<ReqRespuestaEmployee> value) => this.employees = value;
+  set setEmployees(List<dynamic> value) => this.employees = value;
 
 //Extraer Datos
   factory ReqRespuesta.fromJson(Map<String, dynamic> json) => ReqRespuesta(
         companyName: json["company_name"],
         address: json["address"],
-        employees: List<ReqRespuestaEmployee>.from(
+        employees: List<dynamic>.from(
             json["employees"].map((x) => ReqRespuestaEmployee.fromJson(x))),
       );
 
