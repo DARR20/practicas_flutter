@@ -58,6 +58,7 @@ class ReqRespuestaEmployee {
     this.name,
     this.position,
     this.wage,
+    this.nuevo,
     this.employees,
   });
 
@@ -66,6 +67,7 @@ class ReqRespuestaEmployee {
   String name;
   String position;
   int wage;
+  bool nuevo = false;
   List<EmployeeEmployee> employees;
 
 //Metodos Getter and Setter
@@ -74,12 +76,14 @@ class ReqRespuestaEmployee {
   get getName => this.name;
   get getPosition => this.position;
   get getWage => this.wage;
+  get getNuevo => this.nuevo;
   get getEmployees => this.employees;
 
   set setId(int value) => this.id = value;
   set setName(String value) => this.name = value;
   set setPosition(String value) => this.position = value;
   set setWage(int value) => this.wage = value;
+  set setNuevo(bool value) => this.nuevo = nuevo;
   set setEmployees(List<EmployeeEmployee> value) => this.employees = value;
 
 //Extraer Datos
